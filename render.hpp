@@ -2,10 +2,15 @@
 
 #include "GLFW/glfw3.h"
 
-#define DEFAULT_VIEWPORT_WIDTH 400
-#define DEFAULT_VIEWPORT_HEIGHT 400
+#define DEFAULT_VIEWPORT_WIDTH 1000
+#define DEFAULT_VIEWPORT_HEIGHT 1000
 
 namespace render {
+	
+	// State
+	struct State {
+		bool ShowAttachToProcessWindow = false;
+	};
 
 	// Initialize
 	GLFWwindow* initializeGLFW();
@@ -16,4 +21,7 @@ namespace render {
 
 	// Components
 	void ShowMainWindow();
+	void ShowMainMenuBar(render::State* state);
+	void ShowAttachToProcessWindow(bool* pOpen);
+	void ShowAttachToProcessTable();
 }

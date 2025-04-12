@@ -70,8 +70,8 @@ void render::draw(GLFWwindow* window)
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-	ImGui::ShowDemoWindow();
 	render::ShowMainWindow();
+	ImGui::ShowDemoWindow();
 	ImGui::Render();
 
 	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);

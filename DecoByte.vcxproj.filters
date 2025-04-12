@@ -31,6 +31,12 @@
     <Filter Include="Header Files\render">
       <UniqueIdentifier>{2c0e142c-bb23-4931-a87a-0682b2e19905}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{6885d9d5-4ff7-4f65-9ec3-067ebf5886c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{3df33760-2941-4251-b609-f5da054dd34c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,6 +78,18 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files\render\components</Filter>
     </ClCompile>
+    <ClCompile Include="mainmenubar.cpp">
+      <Filter>Source Files\render\components</Filter>
+    </ClCompile>
+    <ClCompile Include="attachprocesswindow.cpp">
+      <Filter>Source Files\render\components</Filter>
+    </ClCompile>
+    <ClCompile Include="attachprocesstable.cpp">
+      <Filter>Source Files\render\components</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imgui_impl_opengl3_loader.h">
@@ -106,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="process.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model.hpp">
+      <Filter>Header Files\model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

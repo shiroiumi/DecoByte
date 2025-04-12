@@ -1,6 +1,7 @@
-#include "Windows.h"
-#include "process.hpp"
+
+#include <Windows.h>
 #include <TlHelp32.h>
+#include "process.hpp"
 #include <vector>
 
 namespace process {
@@ -60,6 +61,7 @@ namespace process {
 			CloseHandle(hSnap);
 			return 0;
 		}
+		return 0;
 	}
 
 

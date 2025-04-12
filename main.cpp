@@ -44,8 +44,7 @@ int main()
 
 	for (auto& process : processList)
 	{
-		std::cout << process.th32ProcessID << ":";
-		std::cout << utf8_conv.to_bytes(process.szExeFile) << std::endl;
+		std::cout << process.th32ProcessID << ":" << utf8_conv.to_bytes(process.szExeFile) << std::endl;
 	}
 
 	while (!glfwWindowShouldClose(window))
