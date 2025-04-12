@@ -22,11 +22,14 @@
     <Filter Include="Source Files\glad">
       <UniqueIdentifier>{ad0bd241-c591-4ae2-b6a5-630871c71133}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\init">
-      <UniqueIdentifier>{2c0e142c-bb23-4931-a87a-0682b2e19905}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\init">
+    <Filter Include="Source Files\render">
       <UniqueIdentifier>{af130fba-cbc8-4ebe-8ca4-2c4391f8a0da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\render\components">
+      <UniqueIdentifier>{acb28145-bb45-47be-9da0-e275e2d1efd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\render">
+      <UniqueIdentifier>{2c0e142c-bb23-4931-a87a-0682b2e19905}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +61,16 @@
       <Filter>Source Files\glad</Filter>
     </ClCompile>
     <ClCompile Include="render.cpp">
-      <Filter>Source Files\init</Filter>
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="memory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="process.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>Source Files\render\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,7 +102,10 @@
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="render.hpp">
-      <Filter>Header Files\init</Filter>
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="process.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
