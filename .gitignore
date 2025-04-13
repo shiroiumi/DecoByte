@@ -76,3 +76,4 @@ x86/Release
 
 .vs/
 DecoByte/x64/Debug/DecoByte.vcxproj.FileListAbsolute.txt
+imgui.ini

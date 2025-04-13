@@ -2,7 +2,7 @@
 #include "imgui/imgui.h"
 #include "GLFW/glfw3.h"
 #include "render.hpp"
-
+#include "model.hpp"
 
 void render::ShowMainWindow()
 {
@@ -13,7 +13,7 @@ void render::ShowMainWindow()
 
 	if (state.ShowAttachToProcessWindow)
 	{
-		render::ShowAttachToProcessWindow(&state.ShowAttachToProcessWindow);
+		render::ShowAttachToProcessWindow(&state.ShowAttachToProcessWindow, &state);
 	}
 
 	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_FirstUseEver);
@@ -26,5 +26,10 @@ void render::ShowMainWindow()
 	}
 
 	render::ShowMainMenuBar(&state);
+	if (Model::hProc != nullptr)
+	{
+		render::ShowMainMenuTable();
+	}
+
 	ImGui::End();
 }

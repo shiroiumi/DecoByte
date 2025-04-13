@@ -10,7 +10,7 @@
 #include "model.hpp"
 
 
-void render::ShowAttachToProcessTable()
+void render::ShowAttachToProcessTable(State* state)
 {
 	static ImGuiTableFlags flags = ImGuiTableFlags_ScrollY | ImGuiTableFlags_ScrollY
 		| ImGuiTableFlags_BordersOuter | ImGuiTableFlags_Sortable | ImGuiTableFlags_ScrollX
@@ -59,6 +59,8 @@ void render::ShowAttachToProcessTable()
                     ImGuiSelectableFlags_SpanAllColumns | ImGuiSelectableFlags_AllowOverlap))
                 {
                     selected = process.th32ProcessID;
+                    Model::openActiveProcess(process);
+                    state->ShowAttachToProcessWindow = false;
                 }
                 ImGui::TableNextColumn();
                 ImGui::TextUnformatted(utf8_conv.to_bytes(process.szExeFile).c_str());

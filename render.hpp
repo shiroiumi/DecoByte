@@ -21,7 +21,8 @@ namespace render {
 
 	// Components
 	void ShowMainWindow();
-	void ShowMainMenuBar(render::State* state);
-	void ShowAttachToProcessWindow(bool* pOpen);
-	void ShowAttachToProcessTable();
+	void ShowMainMenuBar(State* state);
+	void ShowAttachToProcessWindow(bool* pOpen, State* state);
+	void ShowAttachToProcessTable(State* state);
+	void ShowMainMenuTable();
 }

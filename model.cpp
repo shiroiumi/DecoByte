@@ -4,9 +4,13 @@
 #include <functional>
 #include "model.hpp"
 #include "process.hpp"
+#include "memory.hpp"
 
 
 std::vector<PROCESSENTRY32W> Model::processList;
+HANDLE Model::hProc = nullptr;
+uintptr_t Model::baseModuleAddress = NULL;
+
 using namespace std::placeholders;
 
 void Model::populateProcessList()
@@ -46,4 +50,14 @@ void Model::sortProcessList(ProcessTableID tableID, bool descending)
 	default:
 			break;
 	}
+}
+
+void Model::openActiveProcess(PROCESSENTRY32& process)
+{
+	if (hProc != nullptr)
+	{
+		CloseHandle(hProc);
+	}
+	baseModuleAddress = memory::getModuleAddress(process.th32ProcessID, process.szExeFile, nullptr);
+	hProc = OpenProcess(PROCESS_ALL_ACCESS, NULL, process.th32ProcessID);
 }

@@ -16,10 +16,14 @@ struct Model
 
 
 	static std::vector<PROCESSENTRY32> processList;
+	static HANDLE hProc;
+	static uintptr_t baseModuleAddress;
 	
 	static void populateProcessList();
 
 	static void sortProcessList(ProcessTableID tableID, bool descending);
+
+	static void openActiveProcess(PROCESSENTRY32& process);
 };
 
 
