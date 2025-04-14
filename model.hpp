@@ -19,6 +19,9 @@ struct Model
 	static HANDLE hProc;
 	static uintptr_t baseModuleAddress;
 	
+	// Used for the address bar on main window
+	static uintptr_t baseAddress;
+	
 	static void populateProcessList();
 
 	static void sortProcessList(ProcessTableID tableID, bool descending);

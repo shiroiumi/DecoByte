@@ -3,8 +3,6 @@
 #include <TlHelp32.h>
 #include <iostream>
 #include <vector>
-#include <codecvt>
-#include <locale>
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -29,8 +27,8 @@ int main()
 	SetConsoleOutputCP(CP_UTF8);
 
 	wchar_t title[1024];
-
-	std::wstring_convert<std::codecvt_utf8<wchar_t>> utf8_conv;
+	char cTitle[2048];
+	size_t size;
 
 	for (auto& hWnd : windowList)
 	{
@@ -38,13 +36,15 @@ int main()
 		if (length < 1024)
 		{
 			GetWindowTextW(hWnd, title, 1024);
-			std::cout << utf8_conv.to_bytes(title) << std::endl;
+			wcstombs_s(&size, cTitle, 2048, title, 2048);
+			std::cout << cTitle << std::endl;
 		}
 	}
 
 	for (auto& process : processList)
 	{
-		std::cout << process.th32ProcessID << ":" << utf8_conv.to_bytes(process.szExeFile) << std::endl;
+		wcstombs_s(&size, cTitle, 2048, process.szExeFile, 2048);
+		std::cout << process.th32ProcessID << ":" << cTitle << std::endl;
 	}
 
 	while (!glfwWindowShouldClose(window))

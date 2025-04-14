@@ -28,6 +28,7 @@ void render::ShowMainWindow()
 	render::ShowMainMenuBar(&state);
 	if (Model::hProc != nullptr)
 	{
+		render::ShowAddressTextInput();
 		render::ShowMainMenuTable();
 	}
 

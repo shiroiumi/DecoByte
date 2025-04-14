@@ -37,6 +37,9 @@
     <Filter Include="Header Files\model">
       <UniqueIdentifier>{3df33760-2941-4251-b609-f5da054dd34c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render\components\baseComponents">
+      <UniqueIdentifier>{2eb9841e-9039-4ef5-ab1b-42d1a3169691}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,6 +96,12 @@
     <ClCompile Include="mainmenutable.cpp">
       <Filter>Source Files\render\components</Filter>
     </ClCompile>
+    <ClCompile Include="addresstextinput.cpp">
+      <Filter>Source Files\render\components</Filter>
+    </ClCompile>
+    <ClCompile Include="stingtextinput.cpp">
+      <Filter>Source Files\render\components\baseComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imgui_impl_opengl3_loader.h">
@@ -132,6 +141,9 @@
       <Filter>Header Files\model</Filter>
     </ClInclude>
     <ClInclude Include="memory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="exprtk\exprtk.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

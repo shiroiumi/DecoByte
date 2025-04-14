@@ -10,7 +10,7 @@
 std::vector<PROCESSENTRY32W> Model::processList;
 HANDLE Model::hProc = nullptr;
 uintptr_t Model::baseModuleAddress = NULL;
-
+uintptr_t Model::baseAddress = NULL;
 using namespace std::placeholders;
 
 void Model::populateProcessList()
@@ -32,9 +32,9 @@ int compareName(PROCESSENTRY32 lhs, PROCESSENTRY32 rhs, bool descending)
 {
 	if (descending)
 	{
-		return wcscmp(rhs.szExeFile, lhs.szExeFile) > 0;
+		return _wcsicmp(rhs.szExeFile, lhs.szExeFile) > 0;
 	}
-	return wcscmp(lhs.szExeFile, rhs.szExeFile) > 0;
+	return _wcsicmp(lhs.szExeFile, rhs.szExeFile) > 0;
 }
 
 void Model::sortProcessList(ProcessTableID tableID, bool descending)
