@@ -4,6 +4,8 @@
 
 > ⚠️ This tool is intended for educational and ethical research purposes only. Please use responsibly and ensure compliance with local laws and software terms of service.
 
+![image](https://github.com/user-attachments/assets/5452447e-b9d0-4c75-ada4-ec506deec1d7)
+
 ---
 
 ## 🚀 Features
