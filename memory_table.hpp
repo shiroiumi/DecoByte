@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <unordered_set>
 
 #ifdef _WIN64
 #define ADDRESS_LENGTH 8
@@ -26,6 +27,11 @@ enum DataType {
 	DATATYPE_VTABLE,
 };
 
+struct Selection {
+	std::unordered_set<int> selectedSet;
+	int lastSelection = -1;
+};
+
 struct DataLine
 {
 	unsigned int offset;
@@ -40,7 +46,8 @@ struct DataLine
 		offset(offset), dataType(dataType), byteLength(byteLength)
 	{}
 
-	void renderLine(uintptr_t baseAddress, uint64_t bytes);
+	void renderLine(uintptr_t baseAddress, uint64_t byteValue,
+		Selection& selection, std::vector<DataLine>& dataLines);
 };
 
 class MemoryTable
@@ -49,6 +56,7 @@ public:
 	std::vector<DataLine>* dataLines;
 	unsigned char* byteBuffer;
 	size_t bufferLength = 511;
+	Selection* selection;
 
 	MemoryTable();
 	MemoryTable(char* buffer, size_t size);

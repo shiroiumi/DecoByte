@@ -12,7 +12,7 @@ void render::ShowAttachToProcessTable(State* state)
 {
 	static ImGuiTableFlags flags = ImGuiTableFlags_ScrollY | ImGuiTableFlags_ScrollY
 		| ImGuiTableFlags_BordersOuter | ImGuiTableFlags_Sortable | ImGuiTableFlags_ScrollX
-        | ImGuiTableFlags_RowBg;
+        | ImGuiTableFlags_RowBg | ImGuiTableFlags_NoSavedSettings;
 
 	if (ImGui::BeginTable("##processTable", 2, flags, ImVec2(0.0f, ImGui::GetTextLineHeightWithSpacing() * 15), 0.0f))
 	{

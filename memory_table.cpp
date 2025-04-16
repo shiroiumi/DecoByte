@@ -1,11 +1,16 @@
 #include <format>
+#include <unordered_set>
+#include <vector>
 #include "memory_table.hpp"
 #include "imgui/imgui.h"
 
-void DataLine::renderLine(uintptr_t baseAddress, uint64_t byteValue)
+void DataLine::renderLine(uintptr_t baseAddress, uint64_t byteValue,
+    Selection& selection, std::vector<DataLine>& dataLines)
 {
     if (dataType == DATATYPE_HEX)
     {
+        bool selected = selection.selectedSet.contains(offset);
+
         std::string hexText = std::format("{:X}", byteValue);
         std::string integerText = std::format("{:d}", byteValue);
         double doubleValue = std::bit_cast<double>(byteValue);
@@ -14,7 +19,8 @@ void DataLine::renderLine(uintptr_t baseAddress, uint64_t byteValue)
         {
             floatText = std::format("{:.4e}", doubleValue);
         }
-
+        
+        std::string label = std::format("0x{:04X}", offset);
 
         char addressFmt[8] = "%0";
         strcat_s(addressFmt, ADDRESS_FMT);
@@ -22,7 +28,64 @@ void DataLine::renderLine(uintptr_t baseAddress, uint64_t byteValue)
         ImGui::PushID(offset);
         ImGui::TableNextRow();
         ImGui::TableNextColumn();
-        ImGui::Text("%04X", offset);
+        if (ImGui::Selectable(label.c_str(), selected,
+            ImGuiSelectableFlags_SpanAllColumns | ImGuiSelectableFlags_AllowOverlap))
+        {
+            if (ImGui::GetIO().KeyCtrl)
+            {
+                if (selected)
+                {
+                    selection.selectedSet.erase(offset);
+                }
+                else
+                {
+                    selection.selectedSet.insert(offset);
+                    selection.lastSelection = offset;
+                }
+            }
+            else if (ImGui::GetIO().KeyShift)
+            {
+                if (selection.selectedSet.size() > 0 && selection.lastSelection > 0)
+                {
+                    if (static_cast<long>(offset) - selection.lastSelection > 0)
+                    {
+                        for (int i = 0; i < dataLines.size(); i++)
+                        {
+                            if (dataLines[i].offset == offset)
+                            {
+                                selection.selectedSet.insert(offset);
+                                break;
+                            }
+                            if (dataLines[i].offset >= selection.lastSelection)
+                            {
+                                selection.selectedSet.insert(dataLines[i].offset);
+                            }
+                        }
+                    }
+                    else if (static_cast<long>(offset) - selection.lastSelection < 0) {
+                        for (int i = dataLines.size() - 1; i >= 0; i--)
+                        {
+                            if (dataLines[i].offset == offset)
+                            {
+                                selection.selectedSet.insert(offset);
+                                break;
+                            }
+                            if (dataLines[i].offset <= selection.lastSelection)
+                            {
+                                selection.selectedSet.insert(dataLines[i].offset);
+                            }
+                        }
+                    }
+                    selection.lastSelection = offset;
+                }
+            }
+            else
+            {
+                selection.selectedSet.clear();
+                selection.selectedSet.insert(offset);
+                selection.lastSelection = offset;
+            }
+        }
         ImGui::TableNextColumn();
         ImGui::Text(addressFmt, baseAddress + offset);
         ImGui::TableNextColumn();
@@ -42,6 +105,7 @@ MemoryTable::MemoryTable()
 {
 	dataLines = new std::vector<DataLine>();
 	byteBuffer = new unsigned char[bufferLength];
+    selection = new Selection();
 }
 
 MemoryTable::MemoryTable(char* buffer, size_t size)
@@ -51,12 +115,15 @@ MemoryTable::MemoryTable(char* buffer, size_t size)
 	bufferLength = size;
 
     constructLines();
+
+    selection = new Selection();
 };
 
 MemoryTable::~MemoryTable()
 {
 	delete dataLines;
 	delete byteBuffer;
+    delete selection;
 }
 
 void MemoryTable::renderLines(uintptr_t baseAddress)
@@ -69,7 +136,7 @@ void MemoryTable::renderLines(uintptr_t baseAddress)
             unsigned char byte = byteBuffer[dataLines->at(i).offset + j];
             byteValue |= static_cast<uint64_t>(byte) << j * 8ULL;
         }
-        dataLines->at(i).renderLine(baseAddress, byteValue);
+        dataLines->at(i).renderLine(baseAddress, byteValue, *selection, *dataLines);
     }
 }
 
