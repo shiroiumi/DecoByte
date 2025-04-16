@@ -6,6 +6,7 @@
 #include "imgui/imgui.h"
 #include "render.hpp"
 #include "model.hpp"
+#include "memory_table.hpp"
 
 enum MainTable
 {
@@ -18,44 +19,35 @@ void render::ShowMainMenuTable()
 {
     static ImGuiTableFlags flags = ImGuiTableFlags_ScrollY | ImGuiTableFlags_ScrollY
         | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_Sortable | ImGuiTableFlags_ScrollX
-        | ImGuiTableFlags_RowBg;
+        | ImGuiTableFlags_RowBg | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
+    ImVec2 avail = ImGui::GetContentRegionAvail();
 
-    if (ImGui::BeginTable("##processTable", 3, flags, ImVec2(0.0f, ImGui::GetTextLineHeightWithSpacing() * 15), 0.0f))
+    if (ImGui::BeginTable("##processTable", 6, flags, avail, 0)) //ImVec2(0.0f, ImGui::GetTextLineHeightWithSpacing() * 15), 0.0f))
     {
-        ImGui::TableSetupColumn("Offset", ImGuiTableColumnFlags_WidthFixed, 0.0f, MainTableOffset);
-        ImGui::TableSetupColumn("Address", ImGuiTableColumnFlags_WidthFixed, 0.0f, MainTableAddress);
-        ImGui::TableSetupColumn("Value", ImGuiTableColumnFlags_WidthFixed, 0.0f, MainTableValue);
+        ImGui::TableSetupColumn("Offset", 0, 0.0f, MainTableOffset);
+        ImGui::TableSetupColumn("Address", 0, 0.0f, MainTableAddress);
+        ImGui::TableSetupColumn("Value", 0, 0.0f, MainTableValue);
+        ImGui::TableSetupColumn("Hex", 0, 0.0f, MainTableValue);
+        ImGui::TableSetupColumn("Integer", 0, 0.0f, MainTableValue);
+        ImGui::TableSetupColumn("Floating Point", 0, 0.0f, MainTableValue);
         ImGui::TableSetupScrollFreeze(0, 1);
         ImGui::TableHeadersRow();
 
+        static MemoryTable memTable;
 
+        bool success = ReadProcessMemory(Model::hProc, (BYTE*)Model::baseAddress, memTable.byteBuffer, memTable.bufferLength, nullptr);
 
-        BYTE byteArray[1024];
-
-        ReadProcessMemory(Model::hProc, (BYTE*)Model::baseAddress, &byteArray, sizeof(byteArray), nullptr);
-
-        int selected = -1;
-        for (int row = 0; row < 1024; row+=8)
+        if (!success)
         {
-            // Display a data item
-
-            ImGui::PushID(Model::baseAddress + row);
-            ImGui::TableNextRow();
-            ImGui::TableNextColumn();
-            ImGui::Text("%04X", row);
-            ImGui::TableNextColumn();
-            ImGui::Text("%016llX", Model::baseAddress + row);
-            ImGui::TableNextColumn();
-            ImGui::Text("%llX", (unsigned long long)byteArray[row] |
-                ((unsigned long long)byteArray[row + 1]) << 8 |
-                (unsigned long long)byteArray[row + 2] << 16 |
-                (unsigned long long)byteArray[row + 3] << 24 |
-                (unsigned long long)byteArray[row + 4] << 32 |
-                (unsigned long long)byteArray[row + 5] << 40 |
-                (unsigned long long)byteArray[row + 6] << 48 |
-                (unsigned long long)byteArray[row + 7] << 56 );
-            ImGui::PopID();
+            memset(memTable.byteBuffer, 0, memTable.bufferLength);
         }
+
+        if (memTable.dataLines->size() == 0)
+        {
+            memTable.constructLines();
+        }
+
+        memTable.renderLines(Model::baseAddress);
 
         ImGui::EndTable();
     }

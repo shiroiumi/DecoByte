@@ -12,6 +12,11 @@ void render::ShowAttachToProcessWindow(bool* pOpen, State* state)
 		ImGui::End();
 		return;
 	}
+	if (ImGui::IsWindowAppearing()) {
+		Model::populateProcessList();
+		Model::sortProcessList(Model::ProcessTableID_Name, true);
+	}
+
 	render::ShowAttachToProcessTable(state);
 
 	ImGui::End();

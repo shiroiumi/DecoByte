@@ -159,9 +159,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="addresstextinput.cpp" />
-    <ClCompile Include="attachprocesstable.cpp" />
-    <ClCompile Include="attachprocesswindow.cpp" />
+    <ClCompile Include="address_text_input.cpp" />
+    <ClCompile Include="attach_process_table.cpp" />
+    <ClCompile Include="attach_process_window.cpp" />
+    <ClCompile Include="memory_table.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -170,17 +171,18 @@
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="mainmenubar.cpp" />
-    <ClCompile Include="mainmenutable.cpp" />
-    <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="main_menu_bar.cpp" />
+    <ClCompile Include="main_menu_table.cpp" />
+    <ClCompile Include="main_window.cpp" />
     <ClCompile Include="memory.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="process.cpp" />
     <ClCompile Include="render.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="stingtextinput.cpp" />
+    <ClCompile Include="string_text_input.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="memory_table.hpp" />
     <ClInclude Include="exprtk\exprtk.hpp" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />

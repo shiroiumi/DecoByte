@@ -78,29 +78,32 @@
     <ClCompile Include="process.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mainwindow.cpp">
+    <ClCompile Include="main_window.cpp">
       <Filter>Source Files\render\components</Filter>
     </ClCompile>
-    <ClCompile Include="mainmenubar.cpp">
+    <ClCompile Include="main_menu_bar.cpp">
       <Filter>Source Files\render\components</Filter>
     </ClCompile>
-    <ClCompile Include="attachprocesswindow.cpp">
+    <ClCompile Include="attach_process_window.cpp">
       <Filter>Source Files\render\components</Filter>
     </ClCompile>
-    <ClCompile Include="attachprocesstable.cpp">
+    <ClCompile Include="attach_process_table.cpp">
       <Filter>Source Files\render\components</Filter>
     </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="mainmenutable.cpp">
+    <ClCompile Include="main_menu_table.cpp">
       <Filter>Source Files\render\components</Filter>
     </ClCompile>
-    <ClCompile Include="addresstextinput.cpp">
+    <ClCompile Include="address_text_input.cpp">
       <Filter>Source Files\render\components</Filter>
     </ClCompile>
-    <ClCompile Include="stingtextinput.cpp">
+    <ClCompile Include="string_text_input.cpp">
       <Filter>Source Files\render\components\baseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="memory_table.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +147,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="exprtk\exprtk.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="memory_table.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

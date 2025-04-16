@@ -18,7 +18,7 @@ bool parseAddressInput(std::string address)
 
 	std::regex operations("[+-]");
 	std::regex module(R"(\s*<(.+)>\s*)");
-	std::regex hex(R"(\s*(?:0x)?[0-9a-fA-F]+\s*)");
+	std::regex hex(R"(\s*(?:0x)?([0-9a-fA-F]{1,16})\s*)");
 	std::sregex_token_iterator symbolIter(address.begin(), address.end(), operations, -1);
 	std::sregex_token_iterator tEnd;
 	std::smatch symbolMatch;
@@ -32,14 +32,14 @@ bool parseAddressInput(std::string address)
 			wchar_t moduleNameBuffer[1024];
 			std::string moduleName = symbolMatch[1].str();
 			const char* cString = moduleName.c_str();
-			mbsrtowcs_s(&size, moduleNameBuffer, 1024, &cString, symbolMatch[0].str().size(), NULL);
+			mbsrtowcs_s(&size, moduleNameBuffer, 1024, &cString, symbolMatch[1].str().size(), NULL);
 
 			uintptr_t moduleAddress = memory::getModuleAddress(GetProcessId(Model::hProc), moduleNameBuffer, NULL);
 			symbolList.push_back(std::to_string(moduleAddress));
 		}
-		else if (std::regex_match(symbol, symbolMatch, hex))
+		else if (std::regex_match(symbol, symbolMatch, hex) && symbolMatch[1].length() <= 16)
 		{
-			symbolList.push_back(std::to_string(stoul(symbolMatch[0].str(), 0, 16)));
+			symbolList.push_back(std::to_string(std::stoull(symbolMatch[1].str(), 0, 16)));
 		}
 		else
 		{

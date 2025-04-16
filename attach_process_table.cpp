@@ -1,8 +1,6 @@
 #include <Windows.h>
 #include <TlHelp32.h>
 
-#include <codecvt>
-#include <locale>
 #include <iostream>
 
 #include "imgui/imgui.h"
@@ -35,9 +33,6 @@ void render::ShowAttachToProcessTable(State* state)
             }
         }
 
-
-        std::wstring_convert<std::codecvt_utf8<wchar_t>> utf8_conv;
-
         ImGuiListClipper clipper;
         clipper.ItemsCount = 40;
         clipper.Begin(Model::processList.size());
@@ -48,6 +43,9 @@ void render::ShowAttachToProcessTable(State* state)
                 // Display a data item
                 PROCESSENTRY32 process = Model::processList[row];
  
+                char processName[2048];
+                size_t size;
+                wcstombs_s(&size, processName, 2048, process.szExeFile, 2048);
                 char label[64];
                 sprintf_s(label, "%05d", process.th32ProcessID);
 
@@ -63,7 +61,7 @@ void render::ShowAttachToProcessTable(State* state)
                     state->ShowAttachToProcessWindow = false;
                 }
                 ImGui::TableNextColumn();
-                ImGui::TextUnformatted(utf8_conv.to_bytes(process.szExeFile).c_str());
+                ImGui::TextUnformatted(processName);
                 ImGui::PopID();
             }
 

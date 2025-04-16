@@ -1,3 +1,4 @@
+#pragma warning(disable:C26819)
 /*
  ******************************************************************
  *           C++ Mathematical Expression Toolkit Library          *
@@ -29,7 +30,6 @@
  *                                                                *
  ******************************************************************
 */
-
 
 #ifndef INCLUDE_EXPRTK_HPP
 #define INCLUDE_EXPRTK_HPP

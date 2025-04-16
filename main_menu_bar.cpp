@@ -13,7 +13,6 @@ void render::ShowMainMenuBar(render::State* state)
 		{
 			if (ImGui::MenuItem("Attach to Process", NULL, false))
 			{
-				Model::populateProcessList();
 				state->ShowAttachToProcessWindow = true;
 			}
 
