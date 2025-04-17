@@ -103,7 +103,7 @@
       <Filter>Source Files\render\components\baseComponents</Filter>
     </ClCompile>
     <ClCompile Include="memory_table.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\render\components\baseComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
